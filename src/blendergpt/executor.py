@@ -1,15 +1,26 @@
-from blendergpt.tool_registry import TOOLS
+import socket
+import json
+
+
+HOST = "127.0.0.1"
+PORT = 5000
 
 
 def execute(command):
-    tools_name = command["tool"]
 
-    function = TOOLS.get(tools_name)
+    client = socket.socket(
+        socket.AF_INET,
+        socket.SOCK_STREAM
+    )
 
-    if function is None:
-        return {"status": False, "error": "Unknown tool"}
+    client.connect((HOST, PORT))
 
-    else:
-        parameters = command.copy()
-        del parameters["tool"]
-        return function(**parameters)
+    client.sendall(
+        json.dumps(command).encode("utf-8")
+    )
+
+    response = client.recv(4096)
+
+    client.close()
+
+    return json.loads(response.decode("utf-8"))

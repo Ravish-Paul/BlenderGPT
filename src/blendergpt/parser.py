@@ -10,4 +10,3 @@ def parse_response(response: str):
         return False, f"Response must be an object"
 
     return True, data
-        

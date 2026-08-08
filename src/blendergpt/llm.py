@@ -1,6 +1,7 @@
 from blendergpt.tool_definitions import TOOLS
 from blendergpt.config import MODEL, GEMINI_API_KEY
 from blendergpt.parser import parse_response
+from blendergpt.validator import validate_command
 from google import genai
 
 
@@ -76,8 +77,17 @@ def call_llm(system_prompt: str, user_prompt: str) -> str:
     return response.text
 
 def generate_command(user_prompt):
-    pass
+    system_prmpt = build_system_prompt()
+    call_model = call_llm(system_prompt=system_prmpt, user_prompt=user_prompt)
+    valid_json = parse_response(call_model)
 
-response = call_llm(system_prompt=build_system_prompt(), user_prompt="Create a cube of size 4 at location 1, 0, 0")
+    if valid_json[0]:
+        valid_command = validate_command(valid_json[1])
 
-print(parse_response(response.text))
+        if valid_command[0]:
+            return valid_command[1]
+        
+
+    return "some problum in the generate command function"
+
+print(generate_command(user_prompt="Create a cube of size 6 at 1,0,0"))
