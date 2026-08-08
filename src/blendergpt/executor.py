@@ -1,4 +1,4 @@
-from tool_registry import TOOLS
+from blendergpt.tool_registry import TOOLS
 
 
 def execute(command):

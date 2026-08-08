@@ -7,7 +7,10 @@ authors = [
     { name = "Ravish", email = "rock32300367@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "google-genai>=2.17.0",
+    "python-dotenv>=1.2.2",
+]
 
 [project.scripts]
 blendergpt = "blendergpt:main"
