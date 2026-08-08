@@ -4,7 +4,7 @@
 
 ### Step third run this command
 '& "E:\blender\blender.exe" "E:\blendergpt\project.blend"'
-# if you are installing blender to the same path and making a project file inside the colone repo
+# if you are installing blender to the same path and making a project file inside the clone repo
 
 ### Step forth run main.py 
 
